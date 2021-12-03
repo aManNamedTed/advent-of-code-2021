@@ -15,10 +15,6 @@ fun partOne(fileName:String, stub:Int): Int {
     val input: List<String> = Path(fileName).readLines()
     var gammaRateBitArray:IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0)
     var epsilonRateBitArray:IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0)
-    // MCB in index is gamma rate bit
-    // LCB in index is epsilon rate bit
-    // multiple both rates converted from bit string to ints
-    // return that product
     var bitVector:IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0)
     for (i in input.indices) {
         var bString:String = input[i]
@@ -30,11 +26,12 @@ fun partOne(fileName:String, stub:Int): Int {
             }
         }
     }
-
     for (i in bitVector.indices) {
+        // if   bitVector[i] in [1, inf), 1s occurred more; 1 is MCB, 0 is LCB
         if (bitVector[i] > 0){
             gammaRateBitArray[i] = 1
             epsilonRateBitArray[i] = 0
+        // else bitVector[i] in (-inf,0], 0s occurred more; 0 is MCB, 1 is LCB
         } else {
             gammaRateBitArray[i] = 0
             epsilonRateBitArray[i] = 1
